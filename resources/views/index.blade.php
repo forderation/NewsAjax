@@ -1,7 +1,8 @@
 @extends('master')
 @section('title', 'Halaman Utama Portal - Kabar Burung')
 @section('body')
-<h1>Portal - Kabar Burung</h1>
+<div class="container my-4">
+<h1><a href="/">Portal - Kabar Burung</a></h1>
 <table class="table table-hover table-striped">
     <style type="text/css">
     </style>
@@ -34,3 +35,4 @@ Jumlah Data : {{ $posts->total() }} <br />
 Data Per Halaman : {{ $posts->perPage() }} <br />
 {{ $posts->links() }}
 @stop
+</div>

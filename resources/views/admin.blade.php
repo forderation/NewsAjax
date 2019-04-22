@@ -67,8 +67,9 @@
 </head>
 
 <body>
-    <div class="col-md-8 col-md-offset-2">
-        <h2 class="text-center">Manage Posts</h2>
+    <div class="col-md-10 col-md-offset-1">
+    <h1><a href="/">Portal - Kabar Burung</a></h1>    
+    <h2 class="text-center">Manage Posts</h2>
         <br />
         <div class="panel panel-default">
             <div class="panel-heading">

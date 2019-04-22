@@ -28,6 +28,14 @@ class PostController extends Controller
         return view('admin',['posts'=>$posts]);
     }
 
+    public function detail($id)
+    {
+        $post = Post::where('id', $id)->get();
+        if(0 != count($post)){
+            return view('detail',['post'=>$post]);
+        }
+    }
+
     public function welcome(){
         $posts = Post::paginate(5);
         return view('welcome',['posts'=>$posts]);

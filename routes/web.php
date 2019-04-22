@@ -15,3 +15,4 @@ Route::get('/', 'PostController@welcome');
 Route::get('post', 'PostController@post');
 Route::resource('admin','PostController');
 Route::post('admin/changeStatus', array('as'=>'changeStatus','uses'=>'PostController@changeStatus'));
+Route::get('detail/{id}', 'PostController@detail');

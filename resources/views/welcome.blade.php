@@ -19,8 +19,8 @@
 
 <body>
     {{-- Konten untuk halaman --}}
-    <div class="container">
-        <h1>Portal - Kabar Burung</h1>
+    <div class="container my-4">
+        <h1><a href="/">Portal - Kabar Burung</a></h1>
         <br>
         <?php $no = 0 ?>
         @foreach ($posts as $post)
@@ -29,10 +29,16 @@
             <h4 class="title">{{ $post->title }}</h4>
             <?php $date = strtotime($post->created_at) ?>
             <h5 class="date">{{ date('d/M/Y', $date) }}</h5>
+            <h5>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post->created_at)->diffForHumans() }}</h5>
             <h5>
-                {{ $post->content }}
+                @if(strlen($post->content)>1000)
+                    {{Str::words($post->content,100)}}
+                    <br>
+                    <a href="detail/{{$post->id}}" style="font-size: 20px;">Selengkapnya</a>
+                @else
+                    {{$post->content}}
+                @endif
             </h5>
-            <a href="#" style="font-size: 20px;">Selengkapnya</a>
             <hr />
         @endif
         @endforeach
