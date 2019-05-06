@@ -13,6 +13,9 @@
 
 Route::get('/', 'PostController@welcome');
 Route::get('post', 'PostController@post');
-Route::resource('admin','PostController');
+Route::resource('admin/post','PostController');
+Route::resource('admin/kategori','KategoriController');
+Route::resource('admin/tag','TagController');
+Route::resource('admin/pencipta','PenciptaController');
 Route::post('admin/changeStatus', array('as'=>'changeStatus','uses'=>'PostController@changeStatus'));
 Route::get('detail/{id}', 'PostController@detail');

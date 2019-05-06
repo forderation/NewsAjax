@@ -22,4 +22,19 @@ class Post extends Model
 
         return $excerpt;
     }
+
+    public function kategori(){
+        return $this->belongsTo('App\Kategori','id_kategori');
+    }
+
+    public function pencipta()
+    {
+        return $this->hasOne('App\Pencipta','id_berita');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'tag_post');
+    }
+
 }

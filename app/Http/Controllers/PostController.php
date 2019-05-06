@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use Validator;
 use Response;
 use App\Post;
-use Carbon;
-use View;
+use App\Kategori;
+use App\Pencipta;
+use App\Tag;
 class PostController extends Controller
 {
     /**
@@ -24,8 +25,10 @@ class PostController extends Controller
     public function index()
     {
         //
-        $posts = Post::paginate(5);
-        return view('admin',['posts'=>$posts]);
+        $posts = Post::paginate(10);
+        $kategoris = Kategori::all();
+        $tags = Tag::all();
+        return view('admin/post',compact('posts','kategoris','tags'));
     }
 
     public function detail($id)
@@ -37,7 +40,7 @@ class PostController extends Controller
     }
 
     public function welcome(){
-        $posts = Post::paginate(5);
+        $posts = Post::paginate(10);
         return view('welcome',['posts'=>$posts]);
     }
 
@@ -69,11 +72,28 @@ class PostController extends Controller
         if ($validator->fails()) {
             return Response::json(array('errors' => $validator->getMessageBag()->toArray()));
         } else {
+            $tagID = []; 
+            for($x = 1; $x<=Tag::all()->count() ;$x++){
+                $gettag = $x."_tag";
+                if($request->$gettag=="on"){
+                    array_push($tagID, $x);        
+                }
+            }
             $post = new Post();
             $post->title = $request->title;
             $post->content = $request->content;
+            if($request->kategori){
+                $post->id_kategori = $request->kategori;
+            }
             $post->save();
-            return response()->json($post);
+            if($request->pencipta){
+                $pencipta = new Pencipta();
+                $pencipta->id_berita = $post->id;
+                $pencipta->nama_pencipta = $request->pencipta;
+                $pencipta->save();
+            }
+            $post->tags()->sync($tagID);
+            return redirect('admin/post')->with('success', 'Success added new post !');    
         }
     }
 

@@ -1,3 +1,6 @@
+<?php
+    use App\Post;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +13,6 @@
         .title {
             color: #6792DC;
         }
-
         .date {
             font-style: italic;
         }
@@ -24,6 +26,17 @@
         <br>
         @if(strcmp($post[0]->published,'yes')==0)
             <h4 class="title">{{ $post[0]->title }}</h4>
+            <h5> posted by: {{ Post::find($post[0]->id)->pencipta->nama_pencipta}} </h5>
+            <h5> tags: 
+                <?php
+                 $post_tag = Post::where('id', '=', $post[0]->id)
+                     ->with('tags')
+                     ->first();
+                 foreach($post_tag->tags as $tag){
+                     echo $tag->nama_tag." ";
+                 }
+                ?>
+            </h5>
             <?php $date = strtotime($post[0]->created_at) ?>
             <h5 class="date">{{ date('d/M/Y', $date) }}</h5>
             <h5>

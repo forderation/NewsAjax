@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTablePost extends Migration
+class CreateTableTag extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateTablePost extends Migration
      */
     public function up()
     {
-        Schema::create('post', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('title');
-            $table->text('content');
-            $table->enum('published',	['yes',	'no']);
+        Schema::create('tag', function (Blueprint $table) {
+            $table->bigIncrements('id')->unsigned();
+            $table->string('nama_tag');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateTablePost extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post');
+        Schema::dropIfExists('tag');
     }
 }
